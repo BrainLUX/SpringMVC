@@ -3,7 +3,17 @@
 <head>
     <title>Spring Web</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link href="style.css" media="all" data-th-href="@{style.css}" rel="stylesheet" type="text/css">
+    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/UI/components/TodoCreatorComponent.js"></script>
+    <script type="module" src="js/UI/components/TodoListComponent.js"></script>
+    <script type="module" src="js/UI/components/TodoList.js"></script>
+    <script type="module" src="js/UI/components/TodoMain.js"></script>
+    <script type="module" src="js/lib/Eventable.js"></script>
+    <script type="module" src="js/lib/CONST.js"></script>
+    <script type="module" src="js/utils/templatesManager.js"></script>
 </head>
 <body>
 
@@ -11,38 +21,53 @@
 
     <h1 class="todo-title">Todos</h1>
 
-    <div class="todo-board" th:classappend="${hasContent} ? '__has-content' : ''">
+    <div class="todo-board" th:classappend="${#lists.size(todoList)>0} ? '__has-content' : ''">
 
-        <form class="todo-creator" action="/" method="post">
+        <form class="todo-creator">
             <button class="todo-creator_check-all jsTodoCheckAllAsDone" aria-label="Check all items as done"></button>
             <div class="todo-creator_text-input-w">
                 <input class="todo-creator_text-input jsTodoText" type="text" placeholder="What needs to be done?"
-                       aria-label="Input new todo text" name="todo_name"/>
+                       aria-label="Input new todo text" required pattern="[A-Za-z0-9 ]+" minlength="1" maxlength="100"/>
             </div>
         </form>
 
         <div class="todos-list">
-            <div class="todos-list_item" th:each="todo : ${todos}">
+            <div class="todos-list_item" th:each="todoItem : ${todoList}" th:id="${todoItem.getId()}"
+                 th:classappend="${todoItem.isChecked()} ? '__completed' : ''">
+                <div class="custom-checkbox todos-list_item_ready-marker">
+                    <input type="checkbox" class="custom-checkbox_target" aria-label="Mark todo as ready"
+                           th:checked="${todoItem.isChecked()}"/>
+                    <div class="custom-checkbox_visual">
+                        <div class="custom-checkbox_visual_icon"></div>
+                    </div>
+                </div>
+                <button class="todos-list_item_remove" aria-label="Delete todo"></button>
+                <form class="todos-list_item_text-w">
+                    <input type="text" class="todos-list_item_text" th:value="${todoItem.getDescription()}" required
+                           pattern="[A-Za-z0-9 ]+" minlength="1" maxlength="100">
+                </form>
+            </div>
+        </div>
+
+        <script type="text/html" id="todoItemTemplate">
+            <div class="todos-list_item">
                 <div class="custom-checkbox todos-list_item_ready-marker">
                     <input type="checkbox" class="custom-checkbox_target" aria-label="Mark todo as ready"/>
                     <div class="custom-checkbox_visual">
                         <div class="custom-checkbox_visual_icon"></div>
                     </div>
                 </div>
-                <form action="/" method="post">
-                    <button class="todos-list_item_remove" aria-label="Delete todo" name="id"
-                            th:value="${todo.getId()}"></button>
+                <button class="todos-list_item_remove" aria-label="Delete todo"></button>
+                <form class="todos-list_item_text-w">
+                    <input type="text" class="todos-list_item_text" id="editText" required
+                           pattern="[A-Za-z0-9 ]+" minlength="1" maxlength="100" value="{text}"/>
                 </form>
-                <div class="todos-list_item_text-w">
-                    <div contenteditable="true" class="todos-list_item_text" th:text="${todo.getDescription()}">{text}
-                    </div>
-                </div>
             </div>
-        </div>
+        </script>
 
 
         <div class="todos-toolbar">
-            <div class="todos-toolbar_unready-counter" th:text="${counter}">3 items left</div>
+            <div class="todos-toolbar_unready-counter">3 items left</div>
 
             <div class="filters todos-toolbar_filters">
                 <button id="all" class="filters-item __selected" aria-label="Filter: All, is selected">All</button>
@@ -54,6 +79,8 @@
 
     </div>
 </div>
-
+<form th:action="@{/logout}" method="post">
+    <input type="submit" class="logout_button" value="Logout"/>
+</form>
 </body>
 </html>

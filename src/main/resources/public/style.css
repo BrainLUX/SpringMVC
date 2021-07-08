@@ -56,84 +56,84 @@
 }
 
 
-
 .todo-creator {
     /*padding: 16px 16px;*/
     padding: 16px 18px;
     border-bottom: 1px solid #e6e6e6;
-    }
-    .todo-creator:after {
-        content: '';
-        display: table;
-        clear: both;
-        }
+}
 
+.todo-creator:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.todo-creator_check-all {
+    float: left;
+    /*margin-right: 16px;*/
+    margin-right: 18px;
+    margin-top: 11px;
+
+    padding: 0;
+
+    width: 24px;
+    height: 12px;
+
+    border: none;
+    outline: none;
+
+
+    background: url(../../../images/select-all.png) no-repeat 0 0;
+}
+
+.todo-creator_check-all:hover {
+    cursor: pointer;
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5),
+(min-resolution: 120dpi),
+(min-resolution: 1.5dppx) {
     .todo-creator_check-all {
-        float: left;
-        /*margin-right: 16px;*/
-        margin-right: 18px;
-        margin-top: 11px;
+        background: url(../../../images/select-all@2x.png) no-repeat 0 0;
+        background-size: contain;
+    }
+}
 
-        padding: 0;
+.todo-creator_text-input-w {
+    overflow: hidden;
+}
 
-        width: 24px;
-        height: 12px;
+.todo-creator_text-input {
+    border: none;
+    background: none;
+    outline: none;
+    width: 100%;
+    /*box-sizing: border-box;*/
+    font-size: 24px;
+    color: #666;
+    font-weight: 300;
+    font-family: HelveticaNeueItalic, Arial, sans-serif;
+}
 
-        border: none;
-        outline: none;
+.todo-creator_text-input::-webkit-input-placeholder {
+    font-style: italic;
+    color: #ccc;
+}
 
+.todo-creator_text-input:-moz-placeholder {
+    font-style: italic;
+    color: #ccc;
+}
 
-        background: url(../../../images/select-all.png) no-repeat 0 0;
-        }
-		
-	.todo-creator_check-all:hover {
-		cursor: pointer;
-	}
+.todo-creator_text-input::-moz-placeholder {
+    font-style: italic;
+    color: #ccc;
+}
 
-        @media (-webkit-min-device-pixel-ratio: 1.5),
-               (min-resolution: 120dpi),
-               (min-resolution: 1.5dppx) {
-            .todo-creator_check-all {
-                background: url(../../../images/select-all@2x.png) no-repeat 0 0;
-				background-size: contain;
-                }
-            }
-
-    .todo-creator_text-input-w {
-        overflow: hidden;
-        }
-
-        .todo-creator_text-input {
-            border: none;
-            background: none;
-            outline: none;
-            width: 100%;
-            /*box-sizing: border-box;*/
-            font-size: 24px;
-            color: #666;
-            font-weight: 300;
-            font-family: HelveticaNeueItalic, Arial, sans-serif;
-            }
-
-            .todo-creator_text-input::-webkit-input-placeholder {
-                font-style: italic;
-                color: #ccc;
-                }
-
-            .todo-creator_text-input:-moz-placeholder {
-                font-style: italic;
-                color: #ccc;
-                }
-
-            .todo-creator_text-input::-moz-placeholder {
-                font-style: italic;
-                color: #ccc;
-                }
-
-            .todo-creator_text-input:-ms-input-placeholder {
-                font-style: italic;
-                color: #ccc;
-                }
+.todo-creator_text-input:-ms-input-placeholder {
+    font-style: italic;
+    color: #ccc;
+}
 
 
 .todo-title {
@@ -145,8 +145,8 @@
     color: rgba(175, 47, 47, 0.15);
 
     margin: 8px 0;
-    }
-	
+}
+
 
 .todos-list_item:hover {
     background-color: #fafafa;
@@ -207,7 +207,7 @@
     overflow-x: hidden;
 }
 
-.todos-list_item_text:hover{
+.todos-list_item_text:hover {
     cursor: text;
 }
 
@@ -238,7 +238,7 @@
 (min-resolution: 1.5dppx) {
     .todos-list_item_remove {
         background: url(../../../images/close@2x.png) no-repeat 0 0;
-		background-size: contain;
+        background-size: contain;
     }
 }
 
@@ -296,7 +296,7 @@
     border-color: rgba(175, 47, 47, 0.1);
 }
 
-.filters-item{
+.filters-item {
     padding: 3px 7px;
     border-radius: 3px;
 }
@@ -304,15 +304,16 @@
 .todos-toolbar_filters .filters-item.__selected {
     border: 1px solid #ebdfdf;
 }
+
 html, body, div, h1, h2 {
     margin: 0;
     padding: 0;
-    }
-	
+}
+
 body {
     background: #f5f5f5;
 
-    }
+}
 
 .main-layout {
     max-width: 560px;
@@ -320,7 +321,7 @@ body {
     margin: 0 auto;
     padding: 0 16px 16px;
     /*background: #f00;*/
-    }
+}
 
 .custom-checkbox {
     display: inline-block;
@@ -373,10 +374,24 @@ body {
 (min-resolution: 1.5dppx) {
     .custom-checkbox_target:checked ~ .custom-checkbox_visual .custom-checkbox_visual_icon {
         background: url(../../../images/completed@2x.png) no-repeat 0 0;
-		background-size: contain;
+        background-size: contain;
     }
 }
 
-.todos-list_item + .custom-checkbox_target:checked  ~ .todos-list_item_text-w > .todos-list_item_text {
+.todos-list_item + .custom-checkbox_target:checked ~ .todos-list_item_text-w > .todos-list_item_text {
     text-decoration: line-through;
+}
+
+.logout_button {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 36px;
+    border-radius: 18px;
+    font-size: 18px;
+    border: solid 1px transparent;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    color: #666;
+    cursor: pointer;
 }
